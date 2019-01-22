@@ -83,13 +83,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Desert.jpg" />
-    <Content Include="Hydrangeas.jpg" />
-    <Content Include="Koala.jpg" />
-    <None Include="Resources\Hydrangeas.jpg" />
-    <None Include="Resources\Koala1.jpg" />
-    <None Include="Resources\Koala.jpg" />
-    <None Include="Resources\still1.jpg" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

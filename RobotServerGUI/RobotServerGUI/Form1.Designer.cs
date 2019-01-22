@@ -36,12 +36,12 @@
             this.NormalPictureBox = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.RenderedpictureBox = new System.Windows.Forms.PictureBox();
+            this.MaskedPictureBox = new System.Windows.Forms.PictureBox();
             this.redScrollBar = new System.Windows.Forms.TrackBar();
             this.blueScrollBar = new System.Windows.Forms.TrackBar();
             this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NormalPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RenderedpictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaskedPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.redScrollBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueScrollBar)).BeginInit();
             this.SuspendLayout();
@@ -53,9 +53,9 @@
             this.label1.Location = new System.Drawing.Point(16, 47);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 39);
+            this.label1.Size = new System.Drawing.Size(155, 39);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Distance: ";
+            this.label1.Text = "Velocity: ";
             // 
             // label2
             // 
@@ -73,7 +73,7 @@
             this.textBox1.Cursor = System.Windows.Forms.Cursors.No;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.textBox1.Location = new System.Drawing.Point(227, 43);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(201, 45);
@@ -86,7 +86,7 @@
             this.textBox2.Cursor = System.Windows.Forms.Cursors.No;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.textBox2.Location = new System.Drawing.Point(227, 130);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(201, 45);
@@ -108,10 +108,10 @@
             // NormalPictureBox
             // 
             this.NormalPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.NormalPictureBox.Location = new System.Drawing.Point(227, 217);
-            this.NormalPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NormalPictureBox.Location = new System.Drawing.Point(212, 217);
+            this.NormalPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.NormalPictureBox.Name = "NormalPictureBox";
-            this.NormalPictureBox.Size = new System.Drawing.Size(445, 304);
+            this.NormalPictureBox.Size = new System.Drawing.Size(460, 356);
             this.NormalPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.NormalPictureBox.TabIndex = 4;
             this.NormalPictureBox.TabStop = false;
@@ -131,29 +131,30 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label5.Location = new System.Drawing.Point(867, 608);
+            this.label5.Location = new System.Drawing.Point(875, 608);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 29);
+            this.label5.Size = new System.Drawing.Size(98, 29);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Rendered";
+            this.label5.Text = "Masked";
             // 
-            // RenderedpictureBox
+            // MaskedPictureBox
             // 
-            this.RenderedpictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.RenderedpictureBox.Location = new System.Drawing.Point(703, 217);
-            this.RenderedpictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.RenderedpictureBox.Name = "RenderedpictureBox";
-            this.RenderedpictureBox.Size = new System.Drawing.Size(445, 304);
-            this.RenderedpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.RenderedpictureBox.TabIndex = 9;
-            this.RenderedpictureBox.TabStop = false;
+            this.MaskedPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.MaskedPictureBox.Location = new System.Drawing.Point(688, 217);
+            this.MaskedPictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.MaskedPictureBox.Name = "MaskedPictureBox";
+            this.MaskedPictureBox.Size = new System.Drawing.Size(460, 356);
+            this.MaskedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.MaskedPictureBox.TabIndex = 9;
+            this.MaskedPictureBox.TabStop = false;
             // 
             // redScrollBar
             // 
             this.redScrollBar.BackColor = System.Drawing.Color.Red;
-            this.redScrollBar.Location = new System.Drawing.Point(747, 528);
-            this.redScrollBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.redScrollBar.Location = new System.Drawing.Point(749, 153);
+            this.redScrollBar.Margin = new System.Windows.Forms.Padding(4);
+            this.redScrollBar.Maximum = 9;
             this.redScrollBar.Name = "redScrollBar";
             this.redScrollBar.Size = new System.Drawing.Size(139, 56);
             this.redScrollBar.TabIndex = 10;
@@ -161,8 +162,9 @@
             // blueScrollBar
             // 
             this.blueScrollBar.BackColor = System.Drawing.Color.Blue;
-            this.blueScrollBar.Location = new System.Drawing.Point(963, 528);
-            this.blueScrollBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.blueScrollBar.Location = new System.Drawing.Point(950, 153);
+            this.blueScrollBar.Margin = new System.Windows.Forms.Padding(4);
+            this.blueScrollBar.Maximum = 9;
             this.blueScrollBar.Name = "blueScrollBar";
             this.blueScrollBar.Size = new System.Drawing.Size(139, 56);
             this.blueScrollBar.TabIndex = 11;
@@ -174,9 +176,9 @@
             this.label6.Location = new System.Drawing.Point(437, 59);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 25);
+            this.label6.Size = new System.Drawing.Size(44, 25);
             this.label6.TabIndex = 12;
-            this.label6.Text = "m";
+            this.label6.Text = "m/s";
             // 
             // Form1
             // 
@@ -187,7 +189,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.blueScrollBar);
             this.Controls.Add(this.redScrollBar);
-            this.Controls.Add(this.RenderedpictureBox);
+            this.Controls.Add(this.MaskedPictureBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -196,11 +198,12 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Robot Monitor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.NormalPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RenderedpictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaskedPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.redScrollBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blueScrollBar)).EndInit();
             this.ResumeLayout(false);
@@ -218,7 +221,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.PictureBox RenderedpictureBox;
+        private System.Windows.Forms.PictureBox MaskedPictureBox;
         private System.Windows.Forms.TrackBar redScrollBar;
         private System.Windows.Forms.TrackBar blueScrollBar;
         private System.Windows.Forms.Label label6;

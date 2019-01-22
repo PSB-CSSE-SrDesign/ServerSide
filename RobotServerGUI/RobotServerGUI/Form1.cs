@@ -16,67 +16,45 @@ namespace RobotServerGUI
 {
     public partial class Form1 : Form
     {
-        private string distance;
-        private string objectDetention;
-        private Image still;
-
-
+        static Thread connection = null;
+        static Bitmap b = new Bitmap(1600, 900);
 
         public Form1()
         {
-            Thread connection = new Thread(new ThreadStart(MainThread.LaunchThread));
+            connection = new Thread(new ThreadStart(MainThread.LaunchThread));
             connection.Start();
             MainThread.SetEnvironment(this);
 
             InitializeComponent();
-
             SetStyle(ControlStyles.ResizeRedraw, true);
-
-            LoadNewPict();
-
-            GetRedValue();
-
-            GetBlueValue();
         }
 
-      
-
-        public void GetBlueValue()
+        public double GetBlueValue()
         {
-            double blueValue;
+            return redScrollBar.Value/10.0;
         }
 
-        public void GetRedValue()
+        public double GetRedValue()
         {
-            double redValue;
+           return blueScrollBar.Value/10.0;
         }
 
-        Bitmap b = new Bitmap(1600, 900);
-        Rectangle rect;
-        Rectangle sourceRect;
-        Image picture;
-        Graphics g;
-        Image pictureRendered;
-        private float brightness;
-
-        private void LoadNewPict()
+        public void SetParameters(string NormalPictureFile, string MaskedPictureFile, float velocity)
         {
-            
-        }
-
-        public void InitializeParameters(string NormalPictureFile, string RenderedPictureFile, float velocity)
-        {
+            //directory to find images
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";
+
+            //opens filestream for input image and sets picture box
             FileStream fin1 = new FileStream(directory + NormalPictureFile, FileMode.Open, FileAccess.Read);
             NormalPictureBox.Image = Image.FromStream(fin1);
-            //picture = Image.FromFile(directory +RenderedPictureFile);
-            //NormalPictureBox.Image = picture;
+            fin1.Close();
+            //opens filestream for masked image and sets picture box
+            FileStream fin2 = new FileStream(directory + MaskedPictureFile, FileMode.Open, FileAccess.Read);
+            MaskedPictureBox.Image = Image.FromStream(fin2);
+            fin2.Close();
 
-            pictureRendered = Image.FromFile(directory + RenderedPictureFile);
-            RenderedpictureBox.Image = pictureRendered;
-            //textBox1.Text = velocity.ToString();
+            //sets textbox to velocity
             SetTextBox1(velocity.ToString());
-            //textBox2.Text = "Friend";
         }
 
         delegate void StringArgReturningVoidDelegate(string text);
@@ -95,6 +73,11 @@ namespace RobotServerGUI
             {
                 this.textBox1.Text = text;
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Console.WriteLine("window closed");
         }
     }
 }

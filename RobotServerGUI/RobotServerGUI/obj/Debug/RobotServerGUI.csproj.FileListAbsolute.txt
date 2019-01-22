@@ -27,3 +27,13 @@ C:\Users\Ian\Dropbox\Penn State\SWENG480\ServerSide\RobotServerGUI\RobotServerGU
 C:\Users\Ian\Dropbox\Penn State\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.csproj.CoreCompileInputs.cache
 C:\Users\Ian\Dropbox\Penn State\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.exe
 C:\Users\Ian\Dropbox\Penn State\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.pdb
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.csprojAssemblyReference.cache
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.Form1.resources
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.csproj.GenerateResource.cache
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.exe
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.pdb
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\bin\Debug\RobotServerGUI.exe.config
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\bin\Debug\RobotServerGUI.exe
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\bin\Debug\RobotServerGUI.pdb
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.Properties.Resources.resources
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\RobotServerGUI\RobotServerGUI\obj\Debug\RobotServerGUI.csproj.CoreCompileInputs.cache

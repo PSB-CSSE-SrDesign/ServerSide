@@ -13,6 +13,7 @@ namespace RobotServerGUI
     {
         private const string FILETYPE = ".jpg";
         private static Form1 environment = null;
+        private static int imageNum = 0;
 
         public static void SetEnvironment(Form1 f)
         {
@@ -34,7 +35,7 @@ namespace RobotServerGUI
 
             SendCommand();
             Console.WriteLine("Command Sent...");
-            environment.InitializeParameters("input.jpg", "input_masked.jpg", velocity);
+            environment.SetParameters("input.jpg", "input_masked.jpg", velocity);
 
         }
 
