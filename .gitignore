@@ -1,2 +1,10 @@
 #Ignore this folder
 bin/
+
+#Ignore these file types
+########################
+*.jpg
+*.png
+*.gif
+*.exe
+*.log
