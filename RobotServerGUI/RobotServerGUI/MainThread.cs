@@ -12,8 +12,8 @@ namespace RobotServerGUI
     class MainThread
     {
         private const string FILETYPE = ".jpg";
+        private static readonly String[] DIRECTIONS = { "FORW", "BACK", "LEFT", "RIGT" };
         private static Form1 environment = null;
-        private static int imageNum = 0;
 
         public static void SetEnvironment(Form1 f)
         {
@@ -22,29 +22,30 @@ namespace RobotServerGUI
 
         public static void LaunchThread()
         {
+            //initial setup for connection
+            int imageNum = 0;
             SocketListener.StartListening();
+
+            //get message from robot
             float velocity = SocketListener.GetMessage("input" + FILETYPE);
             Console.WriteLine("Image Received...");
+            
+            //launch opencv to process image
+            string cmd = LaunchCV("input.jpg");
 
-            Stopwatch s = new Stopwatch();
-            s.Start();
-            LaunchCV("input.jpg");
-            s.Stop();
-            Console.WriteLine(s.Elapsed);
-
-
-            SendCommand();
+            SendCommand(cmd);
             Console.WriteLine("Command Sent...");
             environment.SetParameters("input.jpg", "input_masked.jpg", velocity);
 
         }
 
-        public static void SendCommand()
+        public static void SendCommand(string cmd)
         {
-            SocketListener.SendMessage("FORW0252");
+            SocketListener.SendMessage(cmd);
         }
 
-        public static void LaunchCV(string fileName)
+        //launches OpenCV and send the data to interpret as a command
+        public static string LaunchCV(string fileName)
         {
             //Sets up process to launch OpenCV program through cosole
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -65,9 +66,20 @@ namespace RobotServerGUI
             //parses output to get angles
             String[] splitter = { "\r\n" };
             String[] lines = output.Split(splitter, 10, StringSplitOptions.RemoveEmptyEntries);
-            String[] angles = lines[2].Split(' ');
-            Console.WriteLine(angles[0]);
-            Console.WriteLine(angles[1]);
+            String[] angleStrings = lines[2].Split(' ');
+
+            string command = getCommand(Convert.ToDouble(angleStrings[0]), Convert.ToDouble(angleStrings[1]));
+
+            return command;
+        }
+
+        public static string getCommand(double redAngle, double blueAngle)
+        {
+            //If red is detected, priority 1
+            //If object is within +-5 degrees, priority 2
+            //If object outside range, priority 3
+
+            return "string";
         }
     }
 }
