@@ -23,19 +23,24 @@ namespace RobotServerGUI
         public static void LaunchThread()
         {
             //initial setup for connection
-            int imageNum = 0;
+            int imageNum = 1;
             SocketListener.StartListening();
 
-            //get message from robot
-            float velocity = SocketListener.GetMessage("input" + FILETYPE);
-            Console.WriteLine("Image Received...");
-            
-            //launch opencv to process image
-            string cmd = LaunchCV("input.jpg");
+            while (environment.terminate == false)
+            {
+                //get message from robot
+                string fileName = "input" + Convert.ToString(imageNum) + FILETYPE;
+                float velocity = SocketListener.GetMessage(fileName);
+                Console.WriteLine("Image Received...");
 
-            SendCommand(cmd);
-            Console.WriteLine("Command Sent...");
-            environment.SetParameters("input.jpg", "input_masked.jpg", velocity);
+                //launch opencv to process image
+                string cmd = LaunchCV(fileName, velocity);
+
+                SendCommand(cmd);
+                Console.WriteLine("Command Sent...");
+                environment.SetParameters(fileName, "input" + Convert.ToString(imageNum) + "_masked" + FILETYPE, velocity);
+                imageNum++;
+            }
 
         }
 
@@ -45,13 +50,14 @@ namespace RobotServerGUI
         }
 
         //launches OpenCV and send the data to interpret as a command
-        public static string LaunchCV(string fileName)
+        public static string LaunchCV(string fileName, float velocity)
         {
             //Sets up process to launch OpenCV program through cosole
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
             pProcess.StartInfo.FileName = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\OpenCV.exe";
             pProcess.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";
-            pProcess.StartInfo.Arguments = fileName + " .75 .75"; //argument
+            string args =  " " + Convert.ToString(environment.GetRedValue()) + " " + Convert.ToString(environment.GetBlueValue()); //gets red and blue tolerances
+            pProcess.StartInfo.Arguments = fileName + args;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -68,18 +74,48 @@ namespace RobotServerGUI
             String[] lines = output.Split(splitter, 10, StringSplitOptions.RemoveEmptyEntries);
             String[] angleStrings = lines[2].Split(' ');
 
-            string command = getCommand(Convert.ToDouble(angleStrings[0]), Convert.ToDouble(angleStrings[1]));
+            string command = getCommand(Convert.ToDouble(angleStrings[0]), Convert.ToDouble(angleStrings[1]), velocity);
 
             return command;
         }
 
-        public static string getCommand(double redAngle, double blueAngle)
+        //TODO: Implement Velocity
+        public static string getCommand(double redAngle, double blueAngle, float velocity)
         {
-            //If red is detected, priority 1
-            //If object is within +-5 degrees, priority 2
-            //If object outside range, priority 3
+            string cmd = "DONO";
 
-            return "string";
+            if (redAngle != 0)
+            {
+                if (Math.Abs(redAngle) < 5) //foe in front
+                {
+                    cmd = DIRECTIONS[1] + "125";
+                }
+                else if (redAngle < -5) //foe to left
+                {
+                    cmd = DIRECTIONS[3] + Math.Abs(redAngle);
+                }
+                else if (redAngle > 5) //foe to right
+                {
+                    cmd = DIRECTIONS[2] + redAngle;
+                }
+            }
+            else if (blueAngle != 0)
+            {
+                if (Math.Abs(blueAngle) < 5) //friend in front
+                {
+                    cmd = DIRECTIONS[0] + "125";
+                }
+                else if (blueAngle < -5) //friend to left
+                {
+                    cmd = DIRECTIONS[3] + Math.Abs(blueAngle);
+                }
+                else if (blueAngle > 5) //friend to right
+                {
+                    cmd = DIRECTIONS[2] + blueAngle;
+                }
+            }
+
+            return cmd;
         }
     }
 }

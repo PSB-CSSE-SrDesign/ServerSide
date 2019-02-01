@@ -152,22 +152,32 @@
             // redScrollBar
             // 
             this.redScrollBar.BackColor = System.Drawing.Color.Red;
+            this.redScrollBar.LargeChange = 10;
             this.redScrollBar.Location = new System.Drawing.Point(749, 153);
             this.redScrollBar.Margin = new System.Windows.Forms.Padding(4);
-            this.redScrollBar.Maximum = 9;
+            this.redScrollBar.Maximum = 90;
             this.redScrollBar.Name = "redScrollBar";
             this.redScrollBar.Size = new System.Drawing.Size(139, 56);
+            this.redScrollBar.SmallChange = 5;
             this.redScrollBar.TabIndex = 10;
+            this.redScrollBar.TickFrequency = 10;
+            this.redScrollBar.Value = 75;
+            this.redScrollBar.ValueChanged += new System.EventHandler(this.redScrollBar_ValueChanged);
             // 
             // blueScrollBar
             // 
             this.blueScrollBar.BackColor = System.Drawing.Color.Blue;
+            this.blueScrollBar.LargeChange = 10;
             this.blueScrollBar.Location = new System.Drawing.Point(950, 153);
             this.blueScrollBar.Margin = new System.Windows.Forms.Padding(4);
-            this.blueScrollBar.Maximum = 9;
+            this.blueScrollBar.Maximum = 90;
             this.blueScrollBar.Name = "blueScrollBar";
             this.blueScrollBar.Size = new System.Drawing.Size(139, 56);
+            this.blueScrollBar.SmallChange = 5;
             this.blueScrollBar.TabIndex = 11;
+            this.blueScrollBar.TickFrequency = 10;
+            this.blueScrollBar.Value = 75;
+            this.blueScrollBar.ValueChanged += new System.EventHandler(this.blueScrollBar_ValueChanged);
             // 
             // label6
             // 
@@ -201,6 +211,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Robot Monitor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.NormalPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaskedPictureBox)).EndInit();
