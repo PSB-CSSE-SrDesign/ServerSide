@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace RobotServerGUI
 {
@@ -29,28 +30,27 @@ namespace RobotServerGUI
             while (environment.terminate == false)
             {
                 //get message from robot
-                string fileName = "input" + Convert.ToString(imageNum) + FILETYPE;
-                float velocity = SocketListener.GetMessage(fileName);
+                float velocity = SocketListener.GetMessage("input" + Convert.ToString(imageNum) + FILETYPE);
                 Console.WriteLine("Image Received...");
 
                 //launch opencv to process image
-                string cmd = LaunchCV(fileName, velocity);
+                string cmd = LaunchCV("input" + Convert.ToString(imageNum) + FILETYPE, velocity);
 
                 SendCommand(cmd);
                 Console.WriteLine("Command Sent...");
-                environment.SetParameters(fileName, "input" + Convert.ToString(imageNum) + "_masked" + FILETYPE, velocity);
+
+                environment.SetParameters("input" + Convert.ToString(imageNum) + FILETYPE, "input" + Convert.ToString(imageNum) + "_masked" + FILETYPE, velocity);
+                if (imageNum > 5)
+                    cleanUp(imageNum - 5);
+                    //Task.Run(() => cleanUp(imageNum - 5));
+
                 imageNum++;
             }
 
         }
-
-        public static void SendCommand(string cmd)
-        {
-            SocketListener.SendMessage(cmd);
-        }
-
+               
         //launches OpenCV and send the data to interpret as a command
-        public static string LaunchCV(string fileName, float velocity)
+        private static string LaunchCV(string fileName, float velocity)
         {
             //Sets up process to launch OpenCV program through cosole
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -79,8 +79,13 @@ namespace RobotServerGUI
             return command;
         }
 
+        private static void SendCommand(string cmd)
+        {
+            SocketListener.SendMessage(cmd);
+        }
+
         //TODO: Implement Velocity
-        public static string getCommand(double redAngle, double blueAngle, float velocity)
+        private static string getCommand(double redAngle, double blueAngle, float velocity)
         {
             string cmd = "DONO";
 
@@ -116,6 +121,17 @@ namespace RobotServerGUI
             }
 
             return cmd;
+        }
+
+        private static void cleanUp(int imgNum)
+        {        
+            //directory to find images
+            string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";
+
+            File.Delete(directory + "input" + Convert.ToString(imgNum) + FILETYPE);
+            File.Delete(directory + "input" + Convert.ToString(imgNum) + "_masked" + FILETYPE);
+
+            return;
         }
     }
 }
