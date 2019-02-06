@@ -161,7 +161,7 @@
             this.redScrollBar.SmallChange = 5;
             this.redScrollBar.TabIndex = 10;
             this.redScrollBar.TickFrequency = 10;
-            this.redScrollBar.Value = 75;
+            this.redScrollBar.Value = 50;
             this.redScrollBar.ValueChanged += new System.EventHandler(this.redScrollBar_ValueChanged);
             // 
             // blueScrollBar
@@ -176,7 +176,7 @@
             this.blueScrollBar.SmallChange = 5;
             this.blueScrollBar.TabIndex = 11;
             this.blueScrollBar.TickFrequency = 10;
-            this.blueScrollBar.Value = 75;
+            this.blueScrollBar.Value = 50;
             this.blueScrollBar.ValueChanged += new System.EventHandler(this.blueScrollBar_ValueChanged);
             // 
             // label6

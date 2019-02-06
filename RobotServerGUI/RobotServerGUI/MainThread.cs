@@ -27,16 +27,18 @@ namespace RobotServerGUI
             int imageNum = 1;
             SocketListener.StartListening();
 
-            while (environment.terminate == false)
+            do
             {
                 //get message from robot
-                float velocity = SocketListener.GetMessage("input" + Convert.ToString(imageNum) + FILETYPE);
+                double velocity = SocketListener.GetMessage("input" + Convert.ToString(imageNum) + FILETYPE);
                 Console.WriteLine("Image Received...");
 
                 //launch opencv to process image
                 string cmd = LaunchCV("input" + Convert.ToString(imageNum) + FILETYPE, velocity);
+                Console.WriteLine(cmd);
 
                 SendCommand(cmd);
+                
                 Console.WriteLine("Command Sent...");
 
                 environment.SetParameters("input" + Convert.ToString(imageNum) + FILETYPE, "input" + Convert.ToString(imageNum) + "_masked" + FILETYPE, velocity);
@@ -45,12 +47,12 @@ namespace RobotServerGUI
                     //Task.Run(() => cleanUp(imageNum - 5));
 
                 imageNum++;
-            }
+            } while (environment.terminate == false && imageNum < 21) ;
 
         }
                
         //launches OpenCV and send the data to interpret as a command
-        private static string LaunchCV(string fileName, float velocity)
+        private static string LaunchCV(string fileName, double velocity)
         {
             //Sets up process to launch OpenCV program through cosole
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -70,6 +72,7 @@ namespace RobotServerGUI
             //Console.Write(output);
 
             //parses output to get angles
+            Console.Write(output);
             String[] splitter = { "\r\n" };
             String[] lines = output.Split(splitter, 10, StringSplitOptions.RemoveEmptyEntries);
             String[] angleStrings = lines[2].Split(' ');
@@ -85,38 +88,53 @@ namespace RobotServerGUI
         }
 
         //TODO: Implement Velocity
-        private static string getCommand(double redAngle, double blueAngle, float velocity)
+        private static string getCommand(double redAngle, double blueAngle, double velocity)
         {
-            string cmd = "DONO";
+            string cmd = "DONO0000";
+            string redAngleZ = "";
+            string blueAngleZ = "";
+
+            if(Math.Abs(redAngle) < 10)
+            {
+                redAngleZ = "0";
+            }
+            if(Math.Abs(blueAngle) < 10)
+            {
+                blueAngleZ = "0";
+            }
 
             if (redAngle != 0)
             {
                 if (Math.Abs(redAngle) < 5) //foe in front
                 {
-                    cmd = DIRECTIONS[1] + "125";
+                    cmd = DIRECTIONS[1] + "0125";
                 }
                 else if (redAngle < -5) //foe to left
                 {
-                    cmd = DIRECTIONS[3] + Math.Abs(redAngle);
+                    redAngle *= 100;
+                    cmd = DIRECTIONS[3] + redAngleZ + Math.Abs(redAngle);
                 }
                 else if (redAngle > 5) //foe to right
                 {
-                    cmd = DIRECTIONS[2] + redAngle;
+                    redAngle *= 100;
+                    cmd = DIRECTIONS[2] + redAngleZ + redAngle;
                 }
             }
             else if (blueAngle != 0)
             {
                 if (Math.Abs(blueAngle) < 5) //friend in front
                 {
-                    cmd = DIRECTIONS[0] + "125";
+                    cmd = DIRECTIONS[0] + "0125";
                 }
                 else if (blueAngle < -5) //friend to left
                 {
-                    cmd = DIRECTIONS[3] + Math.Abs(blueAngle);
+                    blueAngle *= 100;
+                    cmd = DIRECTIONS[3] + blueAngleZ + Math.Abs(blueAngle);
                 }
                 else if (blueAngle > 5) //friend to right
                 {
-                    cmd = DIRECTIONS[2] + blueAngle;
+                    blueAngle *= 100;
+                    cmd = DIRECTIONS[2] + blueAngleZ + blueAngle;
                 }
             }
 

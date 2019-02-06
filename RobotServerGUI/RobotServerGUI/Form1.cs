@@ -43,7 +43,7 @@ namespace RobotServerGUI
            return redValue;
         }
 
-        public void SetParameters(string NormalPictureFile, string MaskedPictureFile, float velocity)
+        public void SetParameters(string NormalPictureFile, string MaskedPictureFile, double velocity)
         {
             //directory to find images
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";

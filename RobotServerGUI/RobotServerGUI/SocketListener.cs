@@ -48,32 +48,37 @@ namespace RobotServerGUI
             }
         }
 
-        public static float GetMessage(string fileName)
+        public static double GetMessage(string fileName)
         {
-            // Get header from message and parse into velocity and file size
-            byte[] header = new byte[8];
-            float velocity;
-            int fileSize;
-            int sentFileSize;
-            int readHeader = handler.Receive(header, 8, 0);
-            velocity = BitConverter.ToSingle(header, 0);
-            fileSize = BitConverter.ToInt32(header, 4);
-            if (fileSize > 200000)
-            {
-                sentFileSize = fileSize;
-                //fileSize = 200000;
-            }
+            byte[] message = new byte[700000]; //TODO: make smaller
+            int readSum = 0, readNum = 0, fileSize = 0;
+            double velocity = 0;
+            int j = 0;
 
-            // Get body of message and save as file
-            byte[] body = new byte[fileSize];
-            int readBody = handler.Receive(body, fileSize, 0);
+            do
+            {
+                readNum = handler.Receive(message, readSum, 1000, 0);
+
+                if (j == 0)
+                {
+                    fileSize = BitConverter.ToInt32(message, 4);
+                    velocity = BitConverter.ToDouble(message, 0);
+                }
+
+                if (readNum > 0)
+                {
+                    j++;
+                    readSum += readNum;
+                }
+            } while (readSum < fileSize && readSum < 700000);
+
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\" + fileName;
             FileStream fos = new FileStream(directory, FileMode.Create);
-            fos.Write(body, 0, fileSize);
+            fos.Write(message, 8, readSum - 8);
             fos.Close();
 
             return velocity;
-            }
+        }
 
         public static void SendMessage(string m)
         {
