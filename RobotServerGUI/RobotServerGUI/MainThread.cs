@@ -35,7 +35,7 @@ namespace RobotServerGUI
 
                 //launch opencv to process image
                 string cmd = LaunchCV("input" + Convert.ToString(imageNum) + FILETYPE, velocity);
-                Console.WriteLine(cmd);
+                Console.WriteLine("\n" + imageNum + ": " + cmd);
 
                 SendCommand(cmd);
                 
@@ -43,11 +43,13 @@ namespace RobotServerGUI
 
                 environment.SetParameters("input" + Convert.ToString(imageNum) + FILETYPE, "input" + Convert.ToString(imageNum) + "_masked" + FILETYPE, velocity);
                 if (imageNum > 5)
-                    cleanUp(imageNum - 5);
+                    CleanUp(imageNum - 5);
                     //Task.Run(() => cleanUp(imageNum - 5));
 
                 imageNum++;
-            } while (environment.terminate == false && imageNum < 21) ;
+            } while (environment.terminate == false);
+
+            SendCommand("SHUTDOWN");
 
         }
                
@@ -73,9 +75,7 @@ namespace RobotServerGUI
 
             //parses output to get angles
             Console.Write(output);
-            String[] splitter = { "\r\n" };
-            String[] lines = output.Split(splitter, 10, StringSplitOptions.RemoveEmptyEntries);
-            String[] angleStrings = lines[2].Split(' ');
+            String[] angleStrings = output.Split(' ');
 
             string command = getCommand(Convert.ToDouble(angleStrings[0]), Convert.ToDouble(angleStrings[1]), velocity);
 
@@ -141,7 +141,7 @@ namespace RobotServerGUI
             return cmd;
         }
 
-        private static void cleanUp(int imgNum)
+        private static void CleanUp(int imgNum)
         {        
             //directory to find images
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";

@@ -74,7 +74,7 @@ namespace RobotServerGUI
 
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\" + fileName;
             FileStream fos = new FileStream(directory, FileMode.Create);
-            fos.Write(message, 8, readSum - 8);
+                fos.Write(message, 8, readSum - 8);
             fos.Close();
 
             return velocity;

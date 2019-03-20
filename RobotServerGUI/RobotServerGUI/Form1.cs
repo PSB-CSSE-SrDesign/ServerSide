@@ -18,7 +18,6 @@ namespace RobotServerGUI
     {
         public bool terminate = false;
         private static Thread connection = null;
-        private static Bitmap b = new Bitmap(1600, 900);
 
         private double redValue = .75;
         private double blueValue = .75;
@@ -101,6 +100,11 @@ namespace RobotServerGUI
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            terminate = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             terminate = true;
         }
