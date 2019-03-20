@@ -16,8 +16,11 @@ namespace RobotServerGUI
 {
     public partial class Form1 : Form
     {
-        static Thread connection = null;
-        static Bitmap b = new Bitmap(1600, 900);
+        public bool terminate = false;
+        private static Thread connection = null;
+
+        private double redValue = .75;
+        private double blueValue = .75;
 
         public Form1()
         {
@@ -31,15 +34,15 @@ namespace RobotServerGUI
 
         public double GetBlueValue()
         {
-            return redScrollBar.Value/10.0;
+            return blueValue;
         }
 
         public double GetRedValue()
         {
-           return blueScrollBar.Value/10.0;
+           return redValue;
         }
 
-        public void SetParameters(string NormalPictureFile, string MaskedPictureFile, float velocity)
+        public void SetParameters(string NormalPictureFile, string MaskedPictureFile, double velocity)
         {
             //directory to find images
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";
@@ -75,9 +78,35 @@ namespace RobotServerGUI
             }
         }
 
+
+
+        private void redScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            redValue = redScrollBar.Value / 100.0;
+        }
+
+        private void blueScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            blueValue = blueScrollBar.Value / 100.0;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure?", "Confirm Termination",
+                             MessageBoxButtons.YesNo,
+                             MessageBoxIcon.Question);
+
+            e.Cancel = (result == DialogResult.No);
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Console.WriteLine("window closed");
+            terminate = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            terminate = true;
         }
     }
 }
