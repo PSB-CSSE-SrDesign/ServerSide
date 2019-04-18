@@ -39,7 +39,7 @@
             this.MaskedPictureBox = new System.Windows.Forms.PictureBox();
             this.redScrollBar = new System.Windows.Forms.TrackBar();
             this.blueScrollBar = new System.Windows.Forms.TrackBar();
-            this.label6 = new System.Windows.Forms.Label();
+            this.connectionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NormalPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaskedPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.redScrollBar)).BeginInit();
@@ -179,16 +179,16 @@
             this.blueScrollBar.Value = 50;
             this.blueScrollBar.ValueChanged += new System.EventHandler(this.blueScrollBar_ValueChanged);
             // 
-            // label6
+            // connectionLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(437, 59);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 25);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "m/s";
+            this.connectionLabel.AutoSize = true;
+            this.connectionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.connectionLabel.ForeColor = System.Drawing.Color.Red;
+            this.connectionLabel.Location = new System.Drawing.Point(763, 58);
+            this.connectionLabel.Name = "connectionLabel";
+            this.connectionLabel.Size = new System.Drawing.Size(236, 25);
+            this.connectionLabel.TabIndex = 12;
+            this.connectionLabel.Text = "Waiting for a connection...";
             // 
             // Form1
             // 
@@ -196,7 +196,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1164, 670);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.connectionLabel);
             this.Controls.Add(this.blueScrollBar);
             this.Controls.Add(this.redScrollBar);
             this.Controls.Add(this.MaskedPictureBox);
@@ -235,7 +235,7 @@
         private System.Windows.Forms.PictureBox MaskedPictureBox;
         private System.Windows.Forms.TrackBar redScrollBar;
         private System.Windows.Forms.TrackBar blueScrollBar;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label connectionLabel;
     }
 }
 

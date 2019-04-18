@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -17,6 +19,7 @@ namespace RobotServerGUI
     public partial class Form1 : Form
     {
         public bool terminate = false;
+        private IPAddress ipaddress;
         private static Thread connection = null;
 
         private double redValue = .75;
@@ -24,12 +27,22 @@ namespace RobotServerGUI
 
         public Form1()
         {
-            connection = new Thread(new ThreadStart(MainThread.LaunchThread));
-            connection.Start();
-            MainThread.SetEnvironment(this);
-
             InitializeComponent();
             SetStyle(ControlStyles.ResizeRedraw, true);
+
+            // Instantiate the dialog box
+            IPSelectBox dlg = new IPSelectBox
+            {
+                Owner = this,
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
+
+            // Open the dialog box modally 
+            dlg.ShowDialog();
+
+            MainThread m = new MainThread(this);
+            connection = new Thread(new ThreadStart(m.LaunchThread));
+            connection.Start();
         }
 
         public double GetBlueValue()
@@ -42,19 +55,35 @@ namespace RobotServerGUI
            return redValue;
         }
 
+        public void SetIPAddress(IPAddress ip)
+        {
+            this.ipaddress = ip;
+        }
+
+        public IPAddress GetIPAddress()
+        {
+            return this.ipaddress;
+        }
+
         public void SetParameters(string NormalPictureFile, string MaskedPictureFile, double velocity)
         {
             //directory to find images
             string directory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + @"\OpenCV\";
+            string normalImageLocation = NormalPictureBox.ImageLocation;
+            string maskedImageLocation = MaskedPictureBox.ImageLocation;
 
             //opens filestream for input image and sets picture box
-            FileStream fin1 = new FileStream(directory + NormalPictureFile, FileMode.Open, FileAccess.Read);
-            NormalPictureBox.Image = Image.FromStream(fin1);
-            fin1.Close();
+            NormalPictureBox.ImageLocation = directory + NormalPictureFile;
+
             //opens filestream for masked image and sets picture box
-            FileStream fin2 = new FileStream(directory + MaskedPictureFile, FileMode.Open, FileAccess.Read);
-            MaskedPictureBox.Image = Image.FromStream(fin2);
-            fin2.Close();
+            MaskedPictureBox.ImageLocation = directory + MaskedPictureFile;
+
+            //delete file previously used
+            if (normalImageLocation != null)
+            {
+                File.Delete(normalImageLocation);
+                File.Delete(maskedImageLocation);
+            }
 
             //sets textbox to velocity
             SetTextBox1(velocity.ToString());
@@ -78,7 +107,42 @@ namespace RobotServerGUI
             }
         }
 
+        public void SetTextBox2(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.textBox2.InvokeRequired)
+            {
+                StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(SetTextBox2);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.textBox2.Text = text;
+            }
+        }
 
+        delegate void NoArgReturningVoidDelegate();
+
+        public void ConnectionMade()
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.textBox2.InvokeRequired)
+            {
+                NoArgReturningVoidDelegate d = new NoArgReturningVoidDelegate(ConnectionMade);
+                this.Invoke(d, new object[] {  });
+            }
+            else
+            {
+                this.connectionLabel.Text = "Connection Made";
+                this.connectionLabel.ForeColor = Color.Black;
+            }
+
+            
+        }
 
         private void redScrollBar_ValueChanged(object sender, EventArgs e)
         {
@@ -102,11 +166,9 @@ namespace RobotServerGUI
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             terminate = true;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            terminate = true;
+            if(SocketListener.CheckConnection())
+                connection.Join();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
