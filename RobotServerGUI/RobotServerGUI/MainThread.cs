@@ -54,8 +54,8 @@ namespace RobotServerGUI
             string[] fileList = System.IO.Directory.GetFiles(directory, filesToDelete);
             foreach(string file in fileList)
             {
-                Console.WriteLine(file + " will be deleted.");
-                //Sytstem.IO.FIle.Delete(file);
+                Console.WriteLine(file + " was deleted.");
+                System.IO.File.Delete(file);
             }
 
             SocketListener.CloseConnection();

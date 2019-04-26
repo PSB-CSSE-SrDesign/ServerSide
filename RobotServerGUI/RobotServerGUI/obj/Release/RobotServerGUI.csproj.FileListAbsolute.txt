@@ -1,0 +1,10 @@
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\bin\Release\RobotServerGUI.exe.config
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\bin\Release\RobotServerGUI.exe
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\bin\Release\RobotServerGUI.pdb
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.Form1.resources
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.IPSelectBox.resources
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.Properties.Resources.resources
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.csproj.GenerateResource.cache
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.csproj.CoreCompileInputs.cache
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.exe
+C:\Users\Ian\Documents\Penn State\Semester 8\SWENG480\ServerSide\ServerSide\RobotServerGUI\RobotServerGUI\obj\Release\RobotServerGUI.pdb
